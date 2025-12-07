@@ -63,16 +63,16 @@
       </div>
 
       <!-- data-endpoint is the backend or n8n webhook. change to your endpoint -->
-      <form id="hrForm" data-endpoint="/api/submit" enctype="multipart/form-data">
+      <form id="hrForm" data-endpoint="http://localhost:3000/webhook/receive" enctype="multipart/form-data">
 
         <div>
           <label for="firstname">First name</label>
-          <input id="firstname" class="input" name="firstname" required placeholder="e.g. taha" >
+          <input id="firstname" class="input" name="firstName" required placeholder="e.g. taha" >
         </div>
 
         <div>
           <label for="lastname">Last name</label>
-          <input id="lastname" class="input" name="lastname" required placeholder="e.g. Sanei">
+          <input id="lastname" class="input" name="lastName" required placeholder="e.g. Sanei">
         </div>
 
         <div>
