@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "80:80"
+
+  backend:
+    build:
+      context: ./Back-nestjs
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
