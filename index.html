@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 350px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  .form-container h2 {
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  label {
+    display: block;
+    margin: 10px 0 5px;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #bbb;
+  }
+  button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>New Employee</h2>
+  <form action="http://localhost:3000/users" method="POST">
+    <label>First Name</label>
+    <input type="text" name="firstName" required>
+    <label>Last Name</label>
+    <input type="text" name="lastName" required>
+    <button type="submit">Save</button>
+  </form>
+</div>
+
+</body>
+</html>

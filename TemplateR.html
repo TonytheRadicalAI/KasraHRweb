@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="Style.css">
+  <img src="kasralogo.png" alt="logo" width="240" class="center"> 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HR — New Employee / Asset Request</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --accent:#2563eb;
+      --muted:#6b7280;
+      --success:#16a34a;
+      --danger:#ef4444;
+      --radius:12px;
+      --maxw:820px;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    }
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%);color:#0f172a}
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:100%;max-width:var(--maxw);background:var(--card);border-radius:var(--radius);box-shadow:0 8px 30px rgba(16,24,40,0.08);padding:28px}
+    h1{margin:0 0 6px;font-size:20px}
+    p.lead{margin:0 0 18px;color:var(--muted);font-size:14px}
+
+    form{display:grid;grid-template-columns:repeat(3,2fr);gap:26px}
+    .full{grid-column:1/-1}
+    label{display:block;font-size:13px;color:#111827;margin-bottom:6px}
+    .input,select,textarea{width:100%;padding:10px 12px;border:2px solid #e6e9ee;border-radius:10px;font-size:14px;background:#fff}
+    .input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 4px 14px rgba(37,99,235,0.08)}
+    textarea{min-height:100px;resize:vertical}
+    .row{display:flex;gap:10px}
+    .hint{font-size:12px;color:var(--muted);margin-top:6px}
+
+    .actions{display:flex;gap:10px;align-items:center;margin-top:10px}
+    button{background:var(--accent);color:white;border:none;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer}
+    button[disabled]{opacity:0.6;cursor:default}
+    .btn-secondary{background:transparent;color:var(--muted);border:1px solid #e6e9ee}
+
+    .status{grid-column:1/-1;margin-top:6px;font-size:14px}
+    .status.success{color:var(--success)}
+    .status.error{color:var(--danger)}
+
+    @media (max-width:720px){
+      form{grid-template-columns:1fr}
+      .row{flex-direction:column}
+    }
+
+    /* small helpers */
+    .flex-between{display:flex;align-items:center;justify-content:space-between}
+    footer{margin-top:18px;font-size:12px;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="flex-between">
+        <div>
+          <h1 dir="rtl">HR Form — New Employee / Request</h1>
+          <p class="lead" dir="rtl">تست فونت فارسی</p>
+        </div>
+      </div>
+
+      <!-- data-endpoint is the backend or n8n webhook. change to your endpoint -->
+      <form id="hrForm" data-endpoint="/api/submit" enctype="multipart/form-data">
+
+        <div>
+          <label for="firstname">First name</label>
+          <input id="firstname" class="input" name="firstname" required placeholder="e.g. taha" >
+        </div>
+
+        <div>
+          <label for="lastname">Last name</label>
+          <input id="lastname" class="input" name="lastname" required placeholder="e.g. Sanei">
+        </div>
+
+        <div>
+          <label for="pid">Personnel ID</label>
+          <input id="pid" class="input" name="personnel_id" required placeholder="e.g. 12345">
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" class="input" name="email" placeholder="john.doe@example.com">
+        </div>
+
+        <div>
+          <label for="department">Department</label>
+          <input id="department" class="input" name="department" placeholder="Support / Sales / HR...">
+        </div>
+
+        <div>
+          <label for="position">Position / Title</label>
+          <input id="position" class="input" name="position" placeholder="e.g. Junior Dev">
+        </div>
+
+        <div>
+          <label for="startdate">Start date</label>
+          <input id="startdate" type="date" class="input" name="start_date">
+        </div>
+
+        <div>
+          <label for="device">Device requested</label>
+          <select id="device" name="device" class="input">
+            <option value="">-- choose --</option>
+            <option>Laptop</option>
+            <option>Monitor</option>
+            <option>Keyboard</option>
+            <option>Mouse</option>
+            <option>Headset</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="full">
+          <label for="comments">Comments / Notes</label>
+          <textarea id="comments" name="comments" placeholder="Any extra details"></textarea>
+        </div>
+
+        <div>
+          <label for="file">Attach file (optional)</label>
+          <input id="file" name="attachment" type="file" class="input">
+          <p class="hint">Allowed: small files. If you plan to accept larger files, implement server-side limits.</p>
+        </div>
+
+        <div>
+          <label>&nbsp;</label>
+          <div class="row">
+            <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" name="urgent"> Mark as urgent</label>
+            <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" name="urgent"> Require phone</label>
+            <label style="display:flex;align-items:center;gap:8px"><input type="checkbox" name="create_email"> Create email account</label>
+          </div>
+        </div>
+
+        <div class="full actions">
+          <button id="submitBtn" type="submit">Submit</button>
+          <button id="clearBtn" type="button" class="btn-secondary">Clear</button>
+          <div style="flex:1"></div>
+        </div>
+
+        <div id="status" class="status full" aria-live="polite"></div>
+
+      </form>
+
+      <footer>
+        Tip: point the <code>data-endpoint</code> to your PHP/Node endpoint or directly to an n8n webhook. If you post to an n8n webhook you may want to disable file uploads or handle them differently.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('hrForm');
+      const status = document.getElementById('status');
+      const submitBtn = document.getElementById('submitBtn');
+      const clearBtn = document.getElementById('clearBtn');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = '';
+        submitBtn.disabled = true;
+
+        const endpoint = form.dataset.endpoint || '/api/submit';
+
+        try {
+          // If form has files, send as FormData (multipart). Otherwise send JSON.
+          const hasFile = form.querySelector('input[type=file]') && form.querySelector('input[type=file]').files.length;
+
+          let resp;
+          if (hasFile) {
+            const fd = new FormData(form);
+            resp = await fetch(endpoint, { method:'POST', body: fd });
+          } else {
+            // build JSON
+            const data = {};
+            new FormData(form).forEach((v,k) => { data[k] = v });
+
+            resp = await fetch(endpoint, { method:'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
+          }
+
+          if (!resp.ok) throw new Error('Server returned ' + resp.status);
+
+          // try to parse JSON response
+          let bodyText = '';
+          try { const j = await resp.json(); bodyText = j.message || JSON.stringify(j); } catch (err) { bodyText = await resp.text(); }
+
+          status.className = 'status success';
+          status.textContent = 'Submitted successfully — ' + bodyText;
+
+          // reset form if you want
+          form.reset();
+        } catch (err) {
+          console.error(err);
+          status.className = 'status error';
+          status.textContent = 'Submit failed — ' + (err.message || 'Unknown error');
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+
+      clearBtn.addEventListener('click', () => {
+        form.reset();
+        status.textContent = '';
+      });
+    })();
+  </script>
+</body>
+</html>
