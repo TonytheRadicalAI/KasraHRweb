@@ -25,6 +25,13 @@ services:
       - "5678:5678"
     networks:
       - appnet
+    environment:
+      - N8N_HOST=192.168.0.228
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - N8N_SECURE_COOKIE=false
+    volumes:
+      - /home/it/n8n/n8n_data:/home/node/.n8
 
 networks:
   appnet:
