@@ -3,7 +3,7 @@ import axios from 'axios';
 
 @Injectable()
 export class WebhookService {
-  private readonly n8nWebhookUrl = 'http://192.168.0.228:5678/webhook-test/22aaf383-809f-4642-ad69-81520e157bb8';
+  private readonly n8nWebhookUrl = 'http://192.168.0.228:5678/webhook-test/31db848d-10b2-4d20-9470-bbe94a79bc67';
 
   /**
    * Send data to n8n webhook

@@ -1,6 +1,6 @@
 # n8n Webhook Integration
 
-This project is now integrated with n8n webhook at: `http://192.168.0.228:5678/webhook-test/22aaf383-809f-4642-ad69-81520e157bb8`
+This project is now integrated with n8n webhook at: `http://192.168.0.228:5678/webhook-test/31db848d-10b2-4d20-9470-bbe94a79bc67`
 
 ## Webhook Endpoints
 
@@ -63,7 +63,7 @@ Check if the webhook integration is working properly.
 ```json
 {
   "status": "ok",
-  "webhook": "http://192.168.0.228:5678/webhook-test/22aaf383-809f-4642-ad69-81520e157bb8",
+  "webhook": "http://192.168.0.228:5678/webhook-test/31db848d-10b2-4d20-9470-bbe94a79bc67",
   "timestamp": "2025-12-07T10:30:00.000Z"
 }
 ```
@@ -119,7 +119,7 @@ JSON File Storage (users.json)
 
 The n8n webhook URL is configured in `src/webhook/webhook.service.ts`:
 ```typescript
-private readonly n8nWebhookUrl = 'http://192.168.0.228:5678/webhook-test/22aaf383-809f-4642-ad69-81520e157bb8';
+private readonly n8nWebhookUrl = 'http://192.168.0.228:5678/webhook-test/31db848d-10b2-4d20-9470-bbe94a79bc67';
 ```
 
 If you need to change the webhook URL, update it in the `WebhookService` class.
